@@ -14,7 +14,118 @@ class MyApp extends StatelessWidget {
       theme: ThemeData(
         primarySwatch: Colors.blue,
       ),
-      home: FormTestRoute(),
+      home: HomePage(),
+    );
+  }
+}
+
+class HomePage extends StatefulWidget {
+  const HomePage({Key? key}) : super(key: key);
+
+  @override
+  State<HomePage> createState() => _HomePageState();
+}
+
+class _HomePageState extends State<HomePage> {
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      appBar: AppBar(
+        title: Text('首页'),
+      ),
+      body: ListView(
+        padding: EdgeInsets.all(8),
+        children: [
+          ListTile(
+            title: Text('MyHomePage'),
+            onTap: () {
+              Navigator.push(
+                context,
+                MaterialPageRoute(
+                  builder: (context) => MyHomePage(),
+                ),
+              );
+            },
+          ),
+          ListTile(
+            title: Text('button'),
+            onTap: () {
+              Navigator.push(
+                context,
+                MaterialPageRoute(
+                  builder: (context) => button(),
+                ),
+              );
+            },
+          ),
+          ListTile(
+            title: Text('ImageTest'),
+            onTap: () {
+              Navigator.push(
+                context,
+                MaterialPageRoute(
+                  builder: (context) => ImageTest(),
+                ),
+              );
+            },
+          ),
+          ListTile(
+            title: Text('SwitchAndCheckBoxTestRoute'),
+            onTap: () {
+              Navigator.push(
+                context,
+                MaterialPageRoute(
+                  builder: (context) => SwitchAndCheckBoxTestRoute(),
+                ),
+              );
+            },
+          ),
+          ListTile(
+            title: Text('TextFieldTest'),
+            onTap: () {
+              Navigator.push(
+                context,
+                MaterialPageRoute(
+                  builder: (context) => TextFieldTest(),
+                ),
+              );
+            },
+          ),
+          ListTile(
+            title: Text('FormTestRoute'),
+            onTap: () {
+              Navigator.push(
+                context,
+                MaterialPageRoute(
+                  builder: (context) => FormTestRoute(),
+                ),
+              );
+            },
+          ),
+          ListTile(
+            title: Text('FocusTestRoute'),
+            onTap: () {
+              Navigator.push(
+                context,
+                MaterialPageRoute(
+                  builder: (context) => FocusTestRoute(),
+                ),
+              );
+            },
+          ),
+          ListTile(
+            title: Text('ProgressRoute'),
+            onTap: () {
+              Navigator.push(
+                context,
+                MaterialPageRoute(
+                  builder: (context) => ProgressRoute(),
+                ),
+              );
+            },
+          ),
+        ],
+      ),
     );
   }
 }
@@ -322,6 +433,7 @@ class _FocusTestRouteState extends State<FocusTestRoute> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      appBar: AppBar(title: Text('FocusTestRoute')),
       body: Padding(
         padding: EdgeInsets.all(16.0),
         child: Column(
@@ -453,16 +565,17 @@ class ProgressRoute extends StatefulWidget {
   _ProgressRouteState createState() => _ProgressRouteState();
 }
 
-class _ProgressRouteState extends State<ProgressRoute> with SingleTickerProviderStateMixin {
+class _ProgressRouteState extends State<ProgressRoute>
+    with SingleTickerProviderStateMixin {
   late AnimationController _animationController;
 
   @override
   void initState() {
-    //动画执行时间3秒  
+    //动画执行时间3秒
     _animationController = AnimationController(
-        vsync: this, //注意State类需要混入SingleTickerProviderStateMixin（提供动画帧计时/触发器）
-        duration: Duration(seconds: 3),
-      );
+      vsync: this, //注意State类需要混入SingleTickerProviderStateMixin（提供动画帧计时/触发器）
+      duration: Duration(seconds: 3),
+    );
     _animationController.forward();
     _animationController.addListener(() => setState(() => {}));
     super.initState();
@@ -476,20 +589,22 @@ class _ProgressRouteState extends State<ProgressRoute> with SingleTickerProvider
 
   @override
   Widget build(BuildContext context) {
-    return SingleChildScrollView(
-      child: Column(
-        children: <Widget>[
-            Padding(
-            padding: EdgeInsets.all(16),
-            child: LinearProgressIndicator(
-              backgroundColor: Colors.grey[200],
-              valueColor: ColorTween(begin: Colors.grey, end: Colors.blue)
-                .animate(_animationController), // 从灰色变成蓝色
-              value: _animationController.value,
-            ),
+    return Scaffold(
+        appBar: AppBar(title: Text('ProgressRoute')),
+        body: SingleChildScrollView(
+          child: Column(
+            children: <Widget>[
+              Padding(
+                padding: EdgeInsets.all(16),
+                child: LinearProgressIndicator(
+                  backgroundColor: Colors.grey[200],
+                  valueColor: ColorTween(begin: Colors.grey, end: Colors.blue)
+                      .animate(_animationController), // 从灰色变成蓝色
+                  value: _animationController.value,
+                ),
+              ),
+            ],
           ),
-        ],
-      ),
-    );
+        ));
   }
 }
